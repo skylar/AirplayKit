@@ -17,6 +17,7 @@
 	// Just Testing
 	manager = [[AKAirplayManager alloc] init];
 	manager.delegate = self;
+    [manager retain];
 	[manager findDevices];
 }
 

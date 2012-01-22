@@ -72,7 +72,7 @@
 
 - (void)netServiceDidResolveAddress:(NSNetService *)sender
 {
-	NSLog(@"Resolved service: %@:%d", sender.hostName, sender.port);
+	NSLog(@"Resolved service: %@:%d", sender.hostName, (int)sender.port);
 	
 	AKDevice *device = [[AKDevice alloc] init];
 	device.hostname = sender.hostName;
@@ -101,13 +101,17 @@
 	device.connected = YES;
 	
 	self.connectedDevice = device;
-	[device release];
 	tempDevice = nil;
 	
 	if(delegate && [delegate respondsToSelector:@selector(manager:didConnectToDevice:)])
 	{
 		[delegate manager:self didConnectToDevice:self.connectedDevice];
 	}
+}
+
+- (void)onSocket:(AsyncSocket *)sock didWriteDataWithTag:(long)tag
+{
+    
 }
 
 #pragma mark -
